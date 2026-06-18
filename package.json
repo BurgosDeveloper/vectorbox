@@ -1,0 +1,13 @@
+{
+  "name": "subliacrilico",
+  "version": "1.0.0",
+  "description": "SubliAcrilico — Plataforma SaaS de diseños digitales",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix Frontend\"",
+    "install-all": "npm install --prefix backend && npm install --prefix Frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

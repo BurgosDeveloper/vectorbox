@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  DEV
+  MAFER
+  CLIENTE
+}
+
+enum PurchaseStatus {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+enum PaymentMethod {
+  ZELLE
+  PROVINCIAL
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id             String       @id @default(cuid())
+  email          String       @unique
+  password       String
+  name           String
+  role           Role         @default(CLIENTE)
+  cedula         String?
+  billingAddress String?
+  billingPhone   String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  purchases   Purchase[]
+  sessionLogs SessionLog[]
+
+  @@map("users")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("categories")
+}
+
+model Product {
+  id                String   @id @default(cuid())
+  title             String
+  description       String?
+  price             Float
+  imagePublicId     String?
+  imageUrl          String?
+  videoUrl          String?
+  googleDriveFileId String?
+  categoryId        String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  category      Category?      @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  purchaseItems PurchaseItem[]
+
+  @@index([categoryId])
+  @@map("products")
+}
+
+model Purchase {
+  id               String         @id @default(cuid())
+  userId           String
+  total            Float
+  status           PurchaseStatus @default(PENDIENTE)
+  paymentMethod    PaymentMethod
+  paymentReference String?
+  paymentHolder    String?
+  paymentPhone     String?
+  cedula           String?
+  billingAddress   String?
+  billingPhone     String?
+  exchangeRate     Float          @default(1.0)
+  totalVES         Float?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  user  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items PurchaseItem[]
+
+  @@index([userId])
+  @@map("purchases")
+}
+
+model PurchaseItem {
+  id              String @id @default(cuid())
+  purchaseId      String
+  productId       String
+  priceAtPurchase Float
+
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@index([purchaseId])
+  @@index([productId])
+  @@map("purchase_items")
+}
+
+model SessionLog {
+  id         String    @id @default(cuid())
+  userId     String
+  loginTime  DateTime  @default(now())
+  logoutTime DateTime?
+  ipAddress  String?
+  deviceType String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session_logs")
+}
