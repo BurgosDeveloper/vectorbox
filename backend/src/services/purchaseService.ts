@@ -71,8 +71,8 @@ export const processPurchaseApproval = async (purchaseId: string) => {
 
   console.log(`[PURCHASE-SERVICE] 💳 Compra ${purchaseId} aprobada en base de datos.`);
 
-  // 3. Generar el PDF de la factura
-  const exchangeRate = parseFloat(process.env.EXCHANGE_RATE || '40.0');
+  // 3. Generar el PDF de la factura (usa la tasa que se guardó al momento de la compra)
+  const exchangeRate = approvedPurchase.exchangeRate ?? parseFloat(process.env.EXCHANGE_RATE || '40.0');
   const pdfBuffer = await generateInvoicePDF(approvedPurchase, exchangeRate);
 
   // 4. Enviar el correo electrónico con el archivo adjunto

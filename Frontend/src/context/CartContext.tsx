@@ -33,7 +33,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Load cart on init
   useEffect(() => {
-    const storedCart = localStorage.getItem('subli_cart');
+    const storedCart = localStorage.getItem('vectorbox_cart');
     if (storedCart) {
       try {
         setCartItems(JSON.parse(storedCart));
@@ -45,7 +45,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const saveCart = (items: Product[]) => {
     setCartItems(items);
-    localStorage.setItem('subli_cart', JSON.stringify(items));
+    localStorage.setItem('vectorbox_cart', JSON.stringify(items));
   };
 
   const openCart = () => setIsCartOpen(true);

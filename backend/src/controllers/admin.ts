@@ -3,6 +3,7 @@ import prisma from '../config/prisma';
 import cloudinary from '../config/cloudinary';
 import { emitToUser } from '../services/socket';
 import { logEvent } from '../services/logger';
+import { processPurchaseApproval } from '../services/purchaseService';
 
 /**
  * Crear un producto
@@ -185,17 +186,8 @@ export const approvePurchase = async (
       });
     }
 
-    const updatedPurchase = await prisma.purchase.update({
-      where: { id },
-      data: { status: 'APROBADO' },
-      include: {
-        items: {
-          include: {
-            product: true,
-          },
-        },
-      },
-    });
+    // Usar el servicio centralizado: aprueba, genera PDF y envía correo
+    const updatedPurchase = await processPurchaseApproval(id);
 
     logEvent('DATABASE_EVENT', 'Compra aprobada manualmente', `ID: ${id}`);
     
@@ -316,17 +308,8 @@ export const reconcileCSV = async (
       });
 
       if (matchedLine) {
-        const approved = await prisma.purchase.update({
-          where: { id: purchase.id },
-          data: { status: 'APROBADO' },
-          include: {
-            items: {
-              include: {
-                product: true,
-              },
-            },
-          },
-        });
+        // Usar el servicio centralizado: aprueba, genera PDF y envía correo
+        const approved = await processPurchaseApproval(purchase.id);
 
         reconciled.push(approved);
         logEvent('DATABASE_EVENT', 'Compra conciliada automáticamente', `ID: ${purchase.id} | Ref: ${ref}`);

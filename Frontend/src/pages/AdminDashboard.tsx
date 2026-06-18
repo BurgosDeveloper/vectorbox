@@ -295,7 +295,7 @@ export default function AdminDashboard() {
       setCsvResult(null);
 
       const res = await api.post('/admin/reconcile-csv', { csvText });
-      const reconciledList = res.data || [];
+      const reconciledList = Array.isArray(res) ? res : (res as any)?.data || [];
       const totalAmount = reconciledList.reduce((sum: number, p: any) => sum + p.total, 0);
 
       setCsvResult({

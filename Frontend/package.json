@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite --host preview"
+    "preview": "vite preview --host"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",
