@@ -6,49 +6,6 @@ import { IoGridOutline } from 'react-icons/io5';
 import AnimatedTitle from '../components/AnimatedTitle';
 import ProductCard3D from '../components/ProductCard3D';
 
-// Mock products fallback in case Neon DB is empty
-const MOCK_PRODUCTS: Product[] = [
-  {
-    id: 'prod_lamp_3d',
-    title: 'Lámpara Acrílica 3D Mandala',
-    description: 'Diseño vectorial listo para corte láser de 3mm. Incluye guía de ensamblaje para base LED e instructivo de grabado en acrílico.',
-    price: 12.50,
-    imageUrl: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop',
-    imagePublicId: 'mock1',
-    videoUrl: null,
-    googleDriveFileId: 'drive_file_lamp'
-  },
-  {
-    id: 'prod_box_premium',
-    title: 'Caja Cofre con Encaje y Bisagras',
-    description: 'Vector plano para cofre acrílico decorativo de 4mm. Encastres perfectos autoportantes con pestillo de seguridad elegante.',
-    price: 8.90,
-    imageUrl: 'https://images.unsplash.com/photo-1512909006721-3d6018887383?q=80&w=600&auto=format&fit=crop',
-    imagePublicId: 'mock2',
-    videoUrl: null,
-    googleDriveFileId: 'drive_file_box'
-  },
-  {
-    id: 'prod_neon_flex',
-    title: 'Plantilla Letrero Neon Flex Open',
-    description: 'Diseño para aviso comercial luminoso. Plantilla de base acrílica con canaletas traseras ruteadas para colocación de manguera Neon.',
-    price: 15.00,
-    imageUrl: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=600&auto=format&fit=crop',
-    imagePublicId: 'mock3',
-    videoUrl: null,
-    googleDriveFileId: 'drive_file_neon'
-  },
-  {
-    id: 'prod_desktop_org',
-    title: 'Organizador Modular de Escritorio',
-    description: 'Plano modular con 5 compartimentos ajustables y tarjetero para corte láser en acrílico cristal de 3mm o mdf de alta densidad.',
-    price: 10.00,
-    imageUrl: 'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?q=80&w=600&auto=format&fit=crop',
-    imagePublicId: 'mock4',
-    videoUrl: null,
-    googleDriveFileId: 'drive_file_org'
-  }
-];
 
 export const LandingPage: React.FC = () => {
   const { addToCart, isInCart } = useCart();
@@ -69,7 +26,7 @@ export const LandingPage: React.FC = () => {
         if (list.length > 0) {
           setProducts(list);
         } else {
-          setProducts(MOCK_PRODUCTS);
+          setProducts([]);
         }
 
         const catList = Array.isArray(catRes) ? catRes : catRes?.data || [];
@@ -77,7 +34,7 @@ export const LandingPage: React.FC = () => {
 
       } catch (err) {
         console.error('Error fetching data:', err);
-        setProducts(MOCK_PRODUCTS);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
