@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import prisma from '../config/prisma';
 import { logEvent } from '../services/logger';
 import { emitToUser } from '../services/socket';
-import { generateInvoicePDF } from '../services/pdfService';
-import { sendEmail } from '../services/emailService';
+import { processPurchaseApproval } from '../services/purchaseService';
 
 // Token secreto para proteger el endpoint (solo el iPhone lo sabrá)
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'VectorBoxSecret123!';
@@ -13,7 +12,7 @@ export const handleSMSWebhook = async (req: Request, res: Response) => {
     const { token, message } = req.body;
 
     if (token !== WEBHOOK_SECRET) {
-      logEvent('SECURITY_ALERT', 'Intento de webhook SMS no autorizado', `Token usado: ${token}`);
+      logEvent('SYSTEM_ALERT', 'Intento de webhook SMS no autorizado', `Token usado: ${token}`);
       return res.status(401).json({ status: 'fail', message: 'No autorizado' });
     }
 
@@ -61,26 +60,13 @@ export const handleSMSWebhook = async (req: Request, res: Response) => {
        return res.status(404).json({ status: 'fail', message: `No hay compras pendientes con referencia terminada en ${reference}` });
     }
 
-    // Aprobar la compra automáticamente
-    const updatedPurchase = await prisma.purchase.update({
-      where: { id: purchase.id },
-      data: { status: 'APROBADO' }
-    });
-
-    logEvent('DATABASE_EVENT', 'Compra conciliada AUTOMATICAMENTE vía SMS', `Compra ID: ${purchase.id} | Ref extraída: ${reference}`);
-
-    // Generar PDF y enviar por correo al cliente
+    // Aprobar la compra automáticamente, generar PDF y enviar correo
     try {
-      const pdfBuffer = await generateInvoicePDF(updatedPurchase, purchase.user, purchase.items);
-      await sendEmail(
-        purchase.user.email,
-        '¡Tu pago ha sido procesado! - VectorBox',
-        'invoice',
-        { name: purchase.user.name, purchaseId: purchase.id },
-        [{ filename: `Factura-${purchase.id}.pdf`, content: pdfBuffer }]
-      );
+      await processPurchaseApproval(purchase.id);
+      logEvent('DATABASE_EVENT', 'Compra conciliada AUTOMATICAMENTE vía SMS', `Compra ID: ${purchase.id} | Ref extraída: ${reference}`);
     } catch (e) {
-      console.error('Error enviando factura post-reconciliación SMS:', e);
+      console.error('Error aprobando la compra vía SMS:', e);
+      return res.status(500).json({ status: 'error', message: 'Error aprobando compra' });
     }
 
     // Notificar al cliente en tiempo real para que su pantalla se actualice sola
