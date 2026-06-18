@@ -61,8 +61,8 @@ function AppContent() {
       {/* Footer corporativo */}
       <footer style={styles.footer}>
         <div style={styles.footerContent}>
-          <span style={styles.brand}>SubliAcrilico</span>
-          <p style={styles.copy}>&copy; 2026 SubliAcrilico. Todos los derechos reservados.</p>
+          <span style={styles.brand}>VectorBox</span>
+          <p style={styles.copy}>&copy; 2026 VectorBox. Todos los derechos reservados.</p>
         </div>
       </footer>
     </>

@@ -10,11 +10,11 @@ export interface CloudinaryUploadResult {
 /**
  * Sube una imagen a Cloudinary en una carpeta específica.
  * @param filePath Ruta local del archivo o stream a subir
- * @param folder Carpeta de destino en Cloudinary (por defecto: 'subliacrilico/products')
+ * @param folder Carpeta de destino en Cloudinary (por defecto: 'vectorbox/products')
  */
 export async function uploadImage(
   filePath: string,
-  folder: string = 'subliacrilico/products'
+  folder: string = 'vectorbox/products'
 ): Promise<CloudinaryUploadResult> {
   try {
     const result = await cloudinary.uploader.upload(filePath, {

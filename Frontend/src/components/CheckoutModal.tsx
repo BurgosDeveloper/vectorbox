@@ -240,8 +240,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                   exit={{ opacity: 0, x: 10 }}
                   style={styles.instructionText}
                 >
-                  Envía tu pago a: <strong style={{ color: '#fff' }}>pagos@subliacrilico.com</strong><br />
-                  A nombre de: <strong style={{ color: '#fff' }}>SubliAcrilico C.A.</strong>
+                  Envía tu pago a: <strong style={{ color: '#fff' }}>pagos@vectorbox.com</strong><br />
+                  A nombre de: <strong style={{ color: '#fff' }}>VectorBox C.A.</strong>
                 </motion.p>
               ) : (
                 <motion.p

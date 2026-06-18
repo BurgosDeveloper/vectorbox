@@ -32,17 +32,17 @@ export const sendInvoiceEmail = async (
 ) => {
   try {
     const transporter = createTransporter();
-    const senderEmail = process.env.SMTP_USER || 'no-reply@subliacrilico.com';
+    const senderEmail = process.env.SMTP_USER || 'no-reply@vectorbox.com';
 
     const mailOptions = {
-      from: `"SubliAcrilico Ventas" <${senderEmail}>`,
+      from: `"VectorBox Ventas" <${senderEmail}>`,
       to,
-      subject: `Factura Digital de tu Compra #${purchaseId} — SubliAcrilico`,
-      text: `Hola ${clientName},\n\n¡Muchas gracias por tu compra en SubliAcrilico!\n\nTu pago ha sido verificado con éxito y tu pedido #${purchaseId} se encuentra ahora APROBADO.\n\nAdjunto a este correo encontrarás la factura digital formal en formato PDF.\n\nYa puedes ingresar a la plataforma para acceder y descargar tus archivos de Corel Draw (.CDR) de forma inmediata.\n\nSaludos cordiales,\nEl equipo de SubliAcrilico`,
+      subject: `Factura Digital de tu Compra #${purchaseId} — VectorBox`,
+      text: `Hola ${clientName},\n\n¡Muchas gracias por tu compra en VectorBox!\n\nTu pago ha sido verificado con éxito y tu pedido #${purchaseId} se encuentra ahora APROBADO.\n\nAdjunto a este correo encontrarás la factura digital formal en formato PDF.\n\nYa puedes ingresar a la plataforma para acceder y descargar tus archivos de Corel Draw (.CDR) de forma inmediata.\n\nSaludos cordiales,\nEl equipo de VectorBox`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 8px; color: #2d3748;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #1a365d; margin: 0;">SUBLIACRILICO</h1>
+            <h1 style="color: #1a365d; margin: 0;">VECTORBOX</h1>
             <p style="color: #718096; font-size: 12px; letter-spacing: 1px; margin: 5px 0 0 0;">DISEÑOS VECTORIALES PREMIUM</p>
           </div>
           <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 25px;" />
@@ -63,19 +63,19 @@ export const sendInvoiceEmail = async (
           </div>
           
           <p style="line-height: 1.6; font-size: 14px;">
-            Si tienes alguna duda o requieres asistencia técnica técnica con los vectores Corel Draw (.CDR), no dudes en escribirnos a <a href="mailto:soporte@subliacrilico.com" style="color: #2b6cb0; text-decoration: none;">soporte@subliacrilico.com</a>.
+            Si tienes alguna duda o requieres asistencia técnica con los vectores, no dudes en escribirnos a <a href="mailto:soporte@vectorbox.com" style="color: #2b6cb0; text-decoration: none;">soporte@vectorbox.com</a>.
           </p>
           
           <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0 20px 0;" />
           
           <p style="font-size: 11px; color: #a0aec0; text-align: center; margin: 0;">
-            Este es un correo de notificación automática enviado por SubliAcrilico. Por favor, no respondas a este mensaje.
+            Este es un correo de notificación automática enviado por VectorBox. Por favor, no respondas a este mensaje.
           </p>
         </div>
       `,
       attachments: [
         {
-          filename: `factura_subliacrilico_${purchaseId}.pdf`,
+          filename: `factura_vectorbox_${purchaseId}.pdf`,
           content: pdfBuffer,
           contentType: 'application/pdf',
         },

@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            SubliAcrilico
+            VectorBox
           </motion.span>
         </Link>
 
@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
             </Link>
           </motion.div>
           
-          {user && user.role !== 'DEV' && user.role !== 'ADMIN' && user.role !== 'MAFER' && (
+          {user && user.role !== 'DEV' && user.role !== 'MAFER' && (
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
               <Link 
                 to="/mis-compras" 
@@ -104,7 +104,7 @@ export const Navbar: React.FC = () => {
           )}
 
           {/* Admin / Dev Links */}
-          {user && (user.role === 'ADMIN' || user.role === 'MAFER') && (
+          {user && user.role === 'MAFER' && (
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
               <Link 
                 to="/admin" 

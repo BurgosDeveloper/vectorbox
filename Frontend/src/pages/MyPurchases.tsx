@@ -145,7 +145,7 @@ export const MyPurchases: React.FC = () => {
       const response = await api.get(`/downloads/${purchaseId}?productId=${productId}`);
       if (response && typeof response.blob === 'function') {
         const blob = await response.blob();
-        let filename = 'descarga_subliacrilico.cdr';
+        let filename = 'descarga_vectorbox.cdr';
         const contentDisposition = response.headers.get('content-disposition');
         if (contentDisposition) {
           const matches = /filename\*?=(?:UTF-8'')?["']?([^"';\n]+)["']?/i.exec(contentDisposition);

@@ -30,7 +30,7 @@ export const createProduct = async (
       try {
         logEvent('SYSTEM_ALERT', 'Subiendo imagen a Cloudinary...');
         const uploadResult = await cloudinary.uploader.upload(image, {
-          folder: 'subliacrilico',
+          folder: 'vectorbox/products',
         });
         imageUrl = uploadResult.secure_url;
         imagePublicId = uploadResult.public_id;

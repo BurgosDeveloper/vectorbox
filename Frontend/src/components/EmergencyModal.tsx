@@ -19,9 +19,9 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({ isOpen, onClose,
   const maferWhatsappNumber = '584141234567';
 
   const handleContactSupport = () => {
-    let message = 'Hola Soporte de SubliAcrilico, necesito ayuda con mi cuenta.';
+    let message = 'Hola Soporte de VectorBox, necesito ayuda con mi cuenta.';
     if (latestPurchase) {
-      message = `Hola Soporte de SubliAcrilico, presento un inconveniente con mi compra:
+      message = `Hola Soporte de VectorBox, presento un inconveniente con mi compra:
 • *ID Compra:* ${latestPurchase.id}
 • *Referencia:* ${latestPurchase.reference || 'N/A'}
 • *Monto:* $${latestPurchase.total.toFixed(2)}

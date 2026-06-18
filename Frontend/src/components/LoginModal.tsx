@@ -67,7 +67,7 @@ export const LoginModal: React.FC = () => {
 
     setLoading(true);
     try {
-      let loggedUser;
+      let loggedUser: any;
       if (isRegister) {
         loggedUser = await register(name, email, password, cedula, billingAddress, billingPhone);
       } else {
@@ -76,7 +76,7 @@ export const LoginModal: React.FC = () => {
       
       // Routing intelligence
       if (loggedUser) {
-        if (loggedUser.role === 'ADMIN' || loggedUser.role === 'MAFER') {
+        if (loggedUser.role === 'MAFER') {
           navigate('/admin');
         } else if (loggedUser.role === 'DEV') {
           navigate('/dev');
@@ -199,7 +199,7 @@ export const LoginModal: React.FC = () => {
                     <input
                       type="email"
                       className="input-premium"
-                      placeholder="ejemplo@subliacrilico.com"
+                      placeholder="ejemplo@vectorbox.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       style={{ paddingLeft: '44px' }}

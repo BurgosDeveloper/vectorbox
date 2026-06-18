@@ -49,7 +49,7 @@ export const generateInvoicePDF = (purchase: PurchaseWithDetails, exchangeRate: 
       doc.fillColor('#FFFFFF')
          .font('Helvetica-Bold')
          .fontSize(24)
-         .text('SUBLIACRILICO', 50, 40)
+         .text('VECTORBOX', 50, 40)
          .fontSize(10)
          .font('Helvetica')
          .text('DISEÑOS VECTORIALES PREMIUM COREL DRAW', 50, 70);
@@ -156,7 +156,7 @@ export const generateInvoicePDF = (purchase: PurchaseWithDetails, exchangeRate: 
       // ─── Pie de Página ────────────────────────────────────────────────────
       doc.fontSize(8).fillColor('#A0AEC0').font('Helvetica')
          .text('Este documento digital sirve como factura y comprobante fiscal de tu adquisición.', 50, 740, { align: 'center' })
-         .text('SubliAcrilico C.A. — J-50123456-7. Para soporte, escribe a soporte@subliacrilico.com', 50, 752, { align: 'center' });
+         .text('VectorBox C.A. — J-50123456-7. Para soporte, escribe a soporte@vectorbox.com', 50, 752, { align: 'center' });
 
       doc.end();
     } catch (error) {

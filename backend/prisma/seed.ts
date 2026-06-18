@@ -23,12 +23,12 @@ async function main() {
   const SALT_ROUNDS = 12;
 
   // ─── Usuario DEV ────────────────────────────────────────────────────────────
-  const devPassword = await bcrypt.hash('Devsubliacrilico', SALT_ROUNDS);
+  const devPassword = await bcrypt.hash('Devvectorbox', SALT_ROUNDS);
   const devUser = await prisma.user.upsert({
-    where: { email: 'dev@subliacrilico.com' },
+    where: { email: 'dev@vectorbox.com' },
     update: {},
     create: {
-      email: 'dev@subliacrilico.com',
+      email: 'dev@vectorbox.com',
       password: devPassword,
       name: 'Desarrollador',
       role: Role.DEV,
@@ -39,10 +39,10 @@ async function main() {
   // ─── Usuario MAFER ──────────────────────────────────────────────────────────
   const maferPassword = await bcrypt.hash('MaferAdmin', SALT_ROUNDS);
   const maferUser = await prisma.user.upsert({
-    where: { email: 'mafer@subliacrilico.com' },
+    where: { email: 'mafer@vectorbox.com' },
     update: {},
     create: {
-      email: 'mafer@subliacrilico.com',
+      email: 'mafer@vectorbox.com',
       password: maferPassword,
       name: 'Mafer',
       role: Role.MAFER,

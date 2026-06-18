@@ -17,7 +17,7 @@ interface AuthContextType {
   isLoginModalOpen: boolean;
   openLoginModal: () => void;
   closeLoginModal: () => void;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User | undefined>;
   register: (
     name: string,
     email: string,
@@ -25,7 +25,7 @@ interface AuthContextType {
     cedula: string,
     billingAddress: string,
     billingPhone: string
-  ) => Promise<void>;
+  ) => Promise<User | undefined>;
   logout: () => Promise<void>;
   error: string | null;
   clearError: () => void;
@@ -92,7 +92,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ) => {
     setError(null);
     try {
-      await api.post('/auth/register', {
+      const data = await api.post('/auth/register', {
         name,
         email,
         password,
@@ -100,8 +100,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         billingAddress,
         billingPhone,
       });
-      // Autologin after registration
-      return await login(email, password);
+      if (data && data.user) {
+        setUser(data.user);
+        closeLoginModal();
+        return data.user;
+      }
     } catch (err: any) {
       const msg = err instanceof ApiError ? err.message : 'Error al registrar el usuario';
       setError(msg);

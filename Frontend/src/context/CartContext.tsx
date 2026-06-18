@@ -9,6 +9,7 @@ export interface Product {
   imageUrl: string | null;
   videoUrl: string | null;
   googleDriveFileId: string | null;
+  category?: any;
 }
 
 interface CartContextType {

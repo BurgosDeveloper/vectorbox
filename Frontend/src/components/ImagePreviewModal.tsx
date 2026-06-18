@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoCloseOutline, IoExpandOutline, IoSearchOutline } from 'react-icons/io5';
+import { IoCloseOutline, IoSearchOutline } from 'react-icons/io5';
 
 interface ImagePreviewModalProps {
   isOpen: boolean;
