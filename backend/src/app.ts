@@ -11,6 +11,7 @@ import purchasesRouter from './routes/purchases';
 import paymentsRouter from './routes/payments';
 import adminRouter from './routes/admin';
 import devRouter from './routes/dev';
+import webhooksRouter from './routes/webhooks';
 import { apiLoggerMiddleware } from './services/logger';
 import { errorHandler } from './middlewares/errorHandler';
 
@@ -82,6 +83,7 @@ app.use('/api/purchases', purchasesRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/dev', devRouter);
+app.use('/api/webhooks', webhooksRouter);
 
 // ─── Manejador de Errores Global ──────────────────────────────────────────────
 app.use(errorHandler);
