@@ -1,6 +1,5 @@
 const getBaseUrl = () => {
-  const host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-  return `http://${host}:5000/api`;
+  return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 };
 
 const BASE_URL = getBaseUrl();
