@@ -251,12 +251,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                   exit={{ opacity: 0, x: 10 }}
                   style={styles.instructionText}
                 >
-                  Envía Pago Móvil a Provincial (0108) por un monto exacto de{' '}
+                  Envía Pago Móvil a Banplus (0114) por un monto exacto de{' '}
                   <strong style={{ color: '#fff' }}>
                     {totalBs !== null ? `Bs. ${totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '...'}
                   </strong>
                   <br /><br />
-                  RIF: <strong style={{ color: '#fff' }}>J-123456789</strong> | Celular: <strong style={{ color: '#fff' }}>0414-1234567</strong>
+                  Cédula: <strong style={{ color: '#fff' }}>V-28.422.383</strong> | Celular: <strong style={{ color: '#fff' }}>0424-7687039</strong>
                 </motion.p>
               )}
             </AnimatePresence>

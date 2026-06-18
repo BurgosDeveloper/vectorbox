@@ -75,7 +75,7 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({ isOpen, onClose,
                 <h4>¿Cuánto tarda la validación de mi pago?</h4>
               </div>
               <p style={styles.faqAnswer}>
-                Los reportes de <strong>Pago Móvil Provincial</strong> se concilian automáticamente en segundos. 
+                Los reportes de <strong>Pago Móvil Banplus</strong> se concilian automáticamente en segundos. 
                 Los pagos por <strong>Zelle</strong> y transferencias manuales son verificados por Mafer y pueden demorar entre 10 minutos y 2 horas.
               </p>
             </div>
